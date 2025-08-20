@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Signup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+      body { font-family: 'Poppins', 'Montserrat', sans-serif; }
+    </style>
+</head>
+<body>
+    <div class="particles-bg"></div>
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+    </button>
+    <div class="futuristic-container">
+        <div class="welcome-section">
+            <h1 class="glow-text">Join the Future</h1>
+            <p class="cta-text">Get Started</p>
+            <div class="neon-divider"></div>
+            <p class="desc">Create your account and experience a next-gen, glowing, glassy signup flow.</p>
+        </div>
+        <div class="login-section">
+            <div class="glass-card signup-card">
+                <h2 class="form-title">Create Account</h2>
+                <form id="signupForm" autocomplete="on">
+                    <div class="input-floating-group">
+                        <input type="text" id="fullname" required autocomplete="name" />
+                        <label for="fullname">Full Name</label>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                    <div class="input-floating-group">
+                        <input type="email" id="email" required autocomplete="username" />
+                        <label for="email">Email</label>
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                    <div class="input-floating-group">
+                        <input type="password" id="password" required autocomplete="new-password" />
+                        <label for="password">Password</label>
+                        <i class="fas fa-lock input-icon"></i>
+                        <i class="fas fa-eye-slash toggle-password"></i>
+                    </div>
+                    <div class="input-floating-group">
+                        <input type="password" id="confirmPassword" required autocomplete="new-password" />
+                        <label for="confirmPassword">Confirm Password</label>
+                        <i class="fas fa-lock input-icon"></i>
+                        <i class="fas fa-eye-slash toggle-password"></i>
+                    </div>
+                    <div class="terms-checkbox">
+                        <label>
+                            <input type="checkbox" id="terms" required>
+                            I agree to the <a href="#" class="terms-link">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="neon-btn login-btn">Create Account</button>
+                </form>
+                <div class="divider">
+                    <span>or sign up with</span>
+                </div>
+                <div class="social-login">
+                    <button class="social-btn google"><i class="fab fa-google"></i></button>
+                    <button class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                    <button class="social-btn github"><i class="fab fa-github"></i></button>
+                </div>
+                <p class="signup-link">
+                    Already have an account? <a href="/">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <canvas id="particles-canvas"></canvas>
+    <script src="signup.js"></script>
+    <script>
+      // Simple particles background (dots moving)
+      const canvas = document.getElementById('particles-canvas');
+      if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let w = window.innerWidth, h = window.innerHeight;
+        canvas.width = w; canvas.height = h;
+        let particles = Array.from({length: 60}, () => ({
+          x: Math.random()*w, y: Math.random()*h,
+          r: Math.random()*2+1, dx: (Math.random()-0.5)*0.7, dy: (Math.random()-0.5)*0.7
+        }));
+        function draw() {
+          ctx.clearRect(0,0,w,h);
+          for (let p of particles) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, 2*Math.PI);
+            ctx.fillStyle = 'rgba(129,140,248,0.7)';
+            ctx.shadowColor = '#8b5cf6';
+            ctx.shadowBlur = 12;
+            ctx.fill();
+            p.x += p.dx; p.y += p.dy;
+            if (p.x<0||p.x>w) p.dx*=-1;
+            if (p.y<0||p.y>h) p.dy*=-1;
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
+        window.addEventListener('resize',()=>{
+          w=window.innerWidth; h=window.innerHeight;
+          canvas.width=w; canvas.height=h;
+        });
+      }
+    </script>
+</body>
+</html> 

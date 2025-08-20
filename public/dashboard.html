@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="strong-dashboard-bg"></div>
+    <div class="simple-dashboard-container">
+        <div class="simple-dashboard-card glass-card animate-card">
+            <div class="avatar-circle">
+                <span id="userAvatar">U</span>
+            </div>
+            <div class="welcome-row">
+                <span class="welcome-text">Welcome,</span>
+                <span id="welcomeName" class="user-name">User</span>!
+            </div>
+            <div class="dashboard-subtitle">Empower your day. Make something awesome!</div>
+            <p class="date-time" id="dateTimeDisplay"></p>
+            <button id="logoutBtn" class="btn btn-primary">Logout</button>
+            <div class="divider"></div>
+            <div class="form-section-title">Send us a message</div>
+            <form id="dashboardForm" class="dashboard-form">
+                <div class="form-group floating-label">
+                    <span class="input-icon"><svg width="18" height="18" fill="#2563eb" viewBox="0 0 24 24"><path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></span>
+                    <input type="text" id="fullName" name="fullName" required />
+                    <label for="fullName">Full Name</label>
+                </div>
+                <div class="form-group floating-label">
+                    <span class="input-icon"><svg width="18" height="18" fill="#2563eb" viewBox="0 0 24 24"><path d="M12 13.5c-2.33 0-7 1.17-7 3.5V19h14v-2c0-2.33-4.67-3.5-7-3.5zm0-2.5a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></span>
+                    <input type="email" id="email" name="email" required />
+                    <label for="email">Email</label>
+                </div>
+                <div class="form-group floating-label">
+                    <span class="input-icon"><svg width="18" height="18" fill="#2563eb" viewBox="0 0 24 24"><path d="M2 21V3a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v18l-6-3-6 3-6-3z"/></svg></span>
+                    <textarea id="message" name="message" rows="3" required></textarea>
+                    <label for="message">Message</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+            <div id="formSuccess" class="form-success" style="display:none;"></div>
+        </div>
+    </div>
+    <footer class="dashboard-footer">&copy; 2025 CYBERNXT solutions LLP All rights reserved.</footer>
+    <script>
+    // Set user name and avatar from sessionStorage
+    const userDataRaw = sessionStorage.getItem('user');
+    let userData = null;
+    try {
+        userData = JSON.parse(userDataRaw);
+    } catch (e) {}
+    if (userData && userData.name) {
+        document.getElementById('welcomeName').textContent = userData.name;
+        // Set avatar initial
+        document.getElementById('userAvatar').textContent = userData.name.charAt(0).toUpperCase();
+    } else {
+        // Show error and redirect
+        document.body.innerHTML = '<div style="color:#fff;background:#232946;padding:2em;text-align:center;font-size:1.3em;">You are not logged in. Redirecting to login page...</div>';
+        setTimeout(() => { window.location.href = "/index.html"; }, 2000);
+    }
+    // Update date/time
+    function updateDateTime() {
+        const now = new Date();
+        document.getElementById('dateTimeDisplay').textContent = now.toLocaleString();
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+    // Logout functionality
+    document.getElementById('logoutBtn').onclick = function() {
+        sessionStorage.removeItem('user');
+        window.location.href = '/index.html';
+    };
+    // Form functionality
+    const dashboardForm = document.getElementById('dashboardForm');
+    const formSuccess = document.getElementById('formSuccess');
+    if (dashboardForm) {
+        dashboardForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            formSuccess.textContent = 'Form submitted successfully!';
+            formSuccess.style.display = 'block';
+            dashboardForm.reset();
+            setTimeout(() => { formSuccess.style.display = 'none'; }, 2500);
+        });
+    }
+    </script>
+</body>
+</html> 
