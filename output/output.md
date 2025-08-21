@@ -1,4 +1,4 @@
-A simple login system using base64 security system.
+<h2>A simple login system using base64 security system.</h2>
 
 Overview:
 We want you to build a simple frontend-based login system. The user credentials will be stored in a JSON file, but with a small twist — the passwords in that file will be encrypted (you can use something like Base64 or SHA-256 hashing).
